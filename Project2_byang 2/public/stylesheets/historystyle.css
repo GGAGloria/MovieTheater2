@@ -1,0 +1,47 @@
+body{ 
+    font-family: arial black;
+    color: black;
+}
+
+ul{
+    background-color: #333333;
+    padding: 0;
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+li {
+    display: inline;
+}
+
+li a{
+    display: inline-block;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: #80bfff;
+    color: black;
+}
+
+h1{
+    text-align:center;
+    margin:20px;
+    font-family: arial black;
+}
+
+h3{
+    text-align: center;
+}
+
+p {
+    padding: 10px;
+    text-align: center;
+    line-height: 1.8;
+}

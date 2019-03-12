@@ -1,0 +1,81 @@
+<head>
+        <meta charset="UTF-8">
+        <title>Elvia's Cinema</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" media="screen and (max-width: 500px)" href="stylesheets/buywelcome_mobile.css" type="text/css">
+        <link rel="stylesheet" media="screen and (min-width: 500px) and (max-width: 1000px)" href="stylesheets/buywelcome_tablet.css" type="text/css">
+        <link rel="stylesheet" media="screen and (min-width: 1000px)" href="stylesheets/buywelcome_desktop.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+    <h1> Ticketing </h1>
+    <div class = "information">
+    </div>
+    <section>
+    </section>
+</body>
+
+<script type="text/javascript">
+    var info = document.querySelector("information");
+    var section = document.querySelector('section');
+    $.getJSON('/seat', function (data) {
+        var lookup = {};
+        var result = [];
+        var names = [];
+        for (var item, i = 0; item = data[i++];) {
+            var name = item.FilmName;
+            if (!(name in lookup)) {
+                lookup[name] = 1;
+                result.push(item);
+                names.push(name);
+            }
+        }
+        for (var item, i = 0; item = result[i++];) {
+            var myH1 = document.createElement('h1');
+            myH1.textContent = item.FilmName;
+            section.appendChild(myH1);
+            var myImage = document.createElement('image');
+            myImage.setAttribute('src', "../movie"+i+'.jpg');
+            section.appendChild(myImage);
+            var myH3 = document.createElement('h3');
+            myH3.textContent = item.Description;
+            section.appendChild(myH3);
+            var myH4 = document.createElement('h4');
+            myH4.textContent = item.Director;
+            section.appendChild(myH4);
+            var myH4 = document.createElement('h4');
+            myH4.textContent = item.Duration;
+            section.appendChild(myH4);
+            var myH4 = document.createElement('h4');
+            myH4.textContent = item.Category;
+            section.appendChild(myH4);
+            var myH4 = document.createElement('h4');
+            myH4.textContent = item.Language;
+            section.appendChild(myH4);
+            var matchingResults = data.filter(function (x) {
+                // body...
+                return x.FilmName == item.FilmName;
+            });
+            console.info(matchingResults);
+            var f = document.createElement('form');
+            f.setAttribute('method',"post");
+            f.setAttribute('action',"seatplantry.html");
+            var s = document.createElement('select');
+            s.setAttribute('name', "broadcast");
+            f.appendChild(s);
+            for (var bc, j=0; bc = matchingResults[j++];){
+                var optionText = bc.Dates+' '+bc.Time+' ('+bc.day+') '+bc.HouseId;
+                var optionValue = '"'+optionValue+'"';
+                option = new Option(optionText,optionValue);
+                s.appendChild(option);
+            }
+            var inputt = document.createElement('input');
+            inputt.setAttribute('type',"submit");
+            inputt.setAttribute('value',"Submit");
+            f.appendChild(inputt);
+            section.appendChild(f);
+        }
+    });
+</script>
+
+

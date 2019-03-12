@@ -1,0 +1,48 @@
+<head>
+        <meta charset="UTF-8">
+        <title>Elvia's Cinema</title>
+        <link rel="stylesheet" href="stylesheets/historystyle.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+
+<body>
+<div class = "nav">
+    <ul>
+        <li><a href = "/tobuywelcome" class = "buy"> Buy A ticket </a></li>
+        <li><a href = "/tocomment" class = "buttontop"> Movie Review </a></li>
+        <li><a href = "/tohistory" class = "buttontop"> Purchase History </a></li>
+        <li><a href = "/logout" class = "buttontop"> Logout </a></li>
+    </ul>
+</div>
+
+<h1> Purchase History </h1>
+<section>
+</section>
+
+<script type="text/javascript">
+    var section= document.querySelector('section');
+    $.getJSON('/history', function (data) {
+        // console.log(data);
+        var UserID = data[0].UserId;
+        var string =  "<h3> Username: "+UserID+'</h3>';
+        $.each(data, function () {
+            var TicketFee = this.TicketFee;
+            var TicketType = this.TicketType;
+            var HouseId = this.Film.HouseId;
+            var SeatNo = this.SeatNo;
+            var FilmName = this.Film.FilmName;
+            var Language = this.Film.Language;
+            var Dates = this.Film.Dates;
+            var day = this.Film.day;
+            var Time = this.Film.Time;
+            string += "<p>Ticket: "+TicketFee+" ("+TicketType+")</p>";
+            string += "<p>House: "+HouseId+"</p>";
+            string += "<p>Seat: "+SeatNo+"</p>";
+            string += "<p>FilmName: "+FilmName+"</p>";
+            string += "<p>Language: "+Language+"</p>";
+            string += "<p>Dates: "+Dates+"("+day+") "+Time+"</p>";
+            string += "<hr>";
+        });
+        section.innerHTML += string;
+    });
+</script>

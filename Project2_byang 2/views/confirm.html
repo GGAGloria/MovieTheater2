@@ -1,0 +1,78 @@
+<head>
+        <meta charset="UTF-8">
+        <title>Elvia's Cinema</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" media="screen and (max-width: 500px)" href="stylesheets/confirm_mobile.css" type="text/css">
+        <link rel="stylesheet" media="screen and (min-width: 500px) and (max-width: 1000px)" href="stylesheets/confirm_tablet.css" type="text/css">
+        <link rel="stylesheet" media="screen and (min-width: 1000px)" href="stylesheets/confirm_desktop.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+<div class = "nav">
+    <ul>
+        <li><a href = "/tobuywelcome" class = "buy"> Buy A ticket </a></li>
+        <li><a href = "/tocomment" class = "buttontop"> Movie Review </a></li>
+        <li><a href = "/tohistory" class = "buttontop"> Purchase History </a></li>
+        <li><a href = "/logout" class = "buttontop"> Logout </a></li>
+    </ul>
+</div>
+<h1> Order Information </h1>
+<section>
+</section>
+</body>
+
+<script>
+    $.getJSON('/confirminfo', function (data) {
+        var section = document.querySelector('section');
+        var FilmName = data.Film[0].FilmName;
+        var Category = data.Film[0].Category;
+        var HouseId = data.Film[0].HouseId;
+        var Category = data.Film[0].Category;
+        var showtime = data.Film[0].Dates+' '+data.Film[0].day+' '+data.Film[0].Time;
+        var tickets = data.tickets;
+        var total = 0;
+        var string = "";
+        for (var ticket, j=0; ticket = tickets[j++];){
+            var split = ticket.split(" ");
+            var SeatNo = split[0];
+            var TicketType = split[1];
+            var TicketFee = split[2];
+            var temp1 = TicketFee.substring(1);
+            total = total + Number(temp1);
+            var fee = TicketFee + '('+ TicketType+')';
+            string += '<div class = "ticketinformation">';
+            string += "<p> Cinema:  Elvia's Cinema </p>";
+            string += "<p> House:  "+HouseId+" </p>";
+            string += "<p> SeatNo:  "+SeatNo+" </p>";
+            string += "<p> Film:  "+FilmName+" </p>";
+            string += "<p> Category:  "+Category+" </p>";
+            string += "<p> Show Time:  "+showtime+" </p>";
+            string += "<p> Ticket Fee:  "+fee+" </p>";
+            string += "</div>";          
+        }
+        string += '<p> Total fee: $';
+        string += total+" </p>";
+        string += '<hr>';
+        string += '<p> Please present valid proof of age/status when purchasing Student or Senior tickets before entering the cinema house. </p>';
+
+        var newTicket={
+            'SeatNo': SeatNo,
+            'TicketType': TicketType,
+            'TicketFee': TicketFee
+        };
+        $.ajax({
+            type: 'POST',
+            data: newTicket,
+            url: '/update',
+            dataType: 'JSON'
+        }).done(function (response) {
+            // Check for successful (blank) response
+            if (response.msg != '') {
+                alert('Error: ' + response.msg);
+            }
+        });
+        string += '<button type = "button" onclick = "window.location=\'/\'"> OK </button>';
+        section.innerHTML = string;
+    });
+
+</script>

@@ -1,0 +1,60 @@
+<head>
+                <meta charset="UTF-8">
+                <title>Elvia's Cinema</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" media="screen and (max-width: 500px)" href="stylesheets/buy_mobile.css" type="text/css">
+                <link rel="stylesheet" media="screen and (min-width: 500px) and (max-width: 1000px)" href="stylesheets/buy_tablet.css" type="text/css">
+                <link rel="stylesheet" media="screen and (min-width: 1000px)" href="stylesheets/buy_desktop.css" type="text/css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        </head>
+
+<body>
+    <h1> Cart </h1>
+    <section>
+    </section>
+</body>
+
+<script>
+    $.getJSON('/ticketinfo', function (data) {
+        var section = document.querySelector('section');
+        var FilmName = data.Film[0].FilmName;
+        var Category = data.Film[0].Category;
+        var HouseId = data.Film[0].HouseId;
+        var Category = data.Film[0].Category;
+        var showtime = data.Film[0].Dates+' '+data.Film[0].day+' '+data.Film[0].Time;
+        var myInfo = document.createElement('div');
+        myInfo.setAttribute("class","information");
+        var s = "<p> Cinema:  Elvia's Cinema </p>"; 
+        myInfo.innerHTML += s;
+        s = "<p> House:  "+HouseId+" </p>";
+        myInfo.innerHTML += s;
+        s = "<p> Film:  "+FilmName+" </p>";
+        myInfo.innerHTML += s;
+        s = "<p> Category:  "+Category+" </p>";
+        myInfo.innerHTML += s;
+        s = "<p> Show Time:  "+showtime+" </p>";
+        myInfo.innerHTML += s;
+        section.appendChild(myInfo);
+        var newDiv = document.createElement('div');
+        var string = "<form action = \"/confirm\" method = 'post'>";
+        var seats = data.Seat;
+        for (var seat, j=0; seat = seats[j++];){
+            string += seat + ": ";
+            string += "<select name = '"+seat+"'>";
+            string += "<option value = '"+seat+" Adult $75'> Adult($75) </option>";
+            string += "<option value = '"+seat+" Student/Senior $50'> Student/Senior($50) </option>";    
+            string += "</select>";
+            string += "<br>";
+        }
+        string += "<div class = 'outer'>";
+        string += "<div class = 'button'>";
+        string += "<button type = 'submit'> Confirm </button>";
+        string += '<button type = "button" onclick = "window.location=\'buywelcome.php\';return false;"> Cancel </button>';
+        string += "</div>";
+        string += "</div>";
+        string += '</form>';
+        newDiv.innerHTML = string;
+        section.appendChild(newDiv);
+    });
+
+</script>

@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Welcome to Elvia's Cinema </title>
+        <link rel="stylesheet" href="stylesheets/welcomestyle.css" type="text/css">
+    </head>
+
+    <body>
+    <div class = "outer">
+    <div class = "login">
+        <h1 align = "center"> Elvia's Cinema </h1>
+
+        <div id = "login">
+            <form action = "/login" method = "post" onsubmit = "return check()">
+                <input type = "text" id = "name" name = "Username" placeholder = "Username" >
+                <br>
+                <input type = "password" id = "password" name = "Password" placeholder = "Password" >
+                <br>
+                <input type = "submit" value = "SUBMIT">
+            </form>
+        </div>
+
+        <div id = "create">
+            <button type = "button" onclick = "location.href='createaccount.html';"> Create an account</button>
+        </div>
+    </div>
+</div>
+        <script>
+            function check(){
+                var nameinput = document.getElementById("name").value;
+                var password = document.getElementById("password").value;
+                if (!nameinput || !password){
+                    alert("Please do not leave the fields empty")
+                    return false;
+                }
+            }
+        </script>
+
+    </body>
+</html>

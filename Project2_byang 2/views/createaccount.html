@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <meta charset = "uft-8">
+        <title> Join EC </title>
+        <link rel="stylesheet" href="stylesheets/createaccountstyle.css" type="text/css">
+    </head>
+
+    <body>
+        
+        <div class = "outer">
+        <div class = "form">
+            <h1> Welcome to Elvia's Cinema </h1>
+        <div id = "create">
+            <form action = "/create" method = "post" onsubmit = "return check()">
+                Username: <br>
+                <input id = "username" name = "username" type = "text" placeholder = "Desired Username" >
+                <br>
+                Password: <br>
+                <input id = "password" name = "password" type = "password" placeholder = "Your Password" >
+                <br>
+                <input type = "submit" value = "Sign Up">
+            </form>
+        </div>
+
+        <div id = "back">
+            <button type = "button" onclick = "location.href='index.html';">Back</button>
+        </div>
+    </div>
+</div>
+        <script>
+            function check(){
+                var nameinput = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                var letterNumber = /^[0-9a-zA-Z]+$/;
+                var pass = /^(?:[0-9]+[a-z]|[a-z]+[0-9])[a-z0-9]*$/i;
+                if (!nameinput || !password){
+                    alert("Please do not leave the fields empty");
+                    return false;
+                } else {
+                    if (nameinput.length < 3){
+                        alert("Username must be longer than 3 characters");
+                        return false;
+                    } 
+                    if (!nameinput.match(letterNumber)){
+                        alert("Username can only consist of characters and numbers");
+                        return false;
+                    }
+                    if (!password.match(pass) || password.length < 6 || password.length > 15){
+                        alert("The length of the password must be between 6 to 15 characters and it must consist of only alphanumerical characters with at least one alphabet and one numerical character");
+                        return false;
+                    }
+                }
+            }
+        </script>
+
+    </body>
+</html>

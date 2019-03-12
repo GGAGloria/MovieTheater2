@@ -1,0 +1,83 @@
+<head>
+                <meta charset="UTF-8">
+                <title>Elvia's Cinema</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" media="screen and (max-width: 500px)" href="stylesheets/seat_mobile.css" type="text/css">
+                <link rel="stylesheet" media="screen and (min-width: 500px) and (max-width: 1000px)" href="stylesheets/seat_tablet.css" type="text/css">
+                <link rel="stylesheet" media="screen and (min-width: 1000px)" href="stylesheets/seat_desktop.css" type="text/css">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+    <section>
+    </section>
+<script>
+   $.getJSON('/seatInfo', function (data) {
+        var section = document.querySelector('section');
+        section.innerHTML = "";
+        var FilmName = data.Film[0].FilmName;
+        var HouseId = data.Film[0].HouseId;
+        var Category = data.Film[0].Category;
+        var showtime = data.Film[0].Dates+' '+data.Film[0].day+' '+data.Film[0].Time;
+        var myInfo = document.createElement('div');
+        myInfo.setAttribute("class","information");
+        var s = "<p> Cinema:  Elvia's Cinema </p>"; 
+        myInfo.innerHTML += s;
+        s = "<p> House:  "+HouseId+" </p>";
+        myInfo.innerHTML += s;
+        s = "<p> Film:  "+FilmName+" </p>";
+        myInfo.innerHTML += s;
+        s = "<p> Category:  "+Category+" </p>";
+        myInfo.innerHTML += s;
+        s = "<p> Show Time:  "+showtime+" </p>";
+        myInfo.innerHTML += s;
+        section.appendChild(myInfo);
+        var myOuter = document.createElement('div');
+        var myButton = document.createElement('div');
+        var f = document.createElement('form');
+        f.setAttribute('method',"post");
+        f.setAttribute('action',"/buyticket");
+        f.setAttribute('name',"seats");
+        var t = document.createElement('table');
+        t.setAttribute("border",'4');
+        t.setAttribute("class", "seats");
+        var rownum = data.Film[0].HouseRow;
+        var colnum = data.Film[0].HouseCol;
+        var tableCon = "";
+        //table for seats
+        for(let i = rownum.charCodeAt(0); i >= 'A'.charCodeAt(0); i--) {
+            tableCon += "<tr>";
+            for (let j = 1; j <= colnum; j++){
+                var seat = String.fromCharCode(i)+j.toString();
+                var find = 0;
+                for (var item, k = 0; item = data.Ticket[k++];) {
+                    if (seat == item.SeatNo){
+                        find = 1;
+                    }
+                }
+                if (find==0){
+                    tableCon += "<td> <input type = 'checkbox' name = \"seat\" value ="+seat+"> <br> " + seat + " </td>";
+                } else {
+                    tableCon += "<td> Sold <br>" + seat +"</td>";
+                }
+            }
+            tableCon += "</tr>";
+        }
+        tableCon += "<tr> <td class = 'screen' colspan = "+colnum+"> Screen </td> </tr> </table>";
+        t.innerHTML = tableCon;
+        f.appendChild(t);
+        var submit = document.createElement('button');
+        submit.setAttribute("type","submit");
+        submit.innerHTML = "Submit";
+        var cancel = document.createElement('button');
+        cancel.setAttribute("type","button");
+        cancel.setAttribute("id", "cancel");
+        cancel.setAttribute("onclick", "window.location=\'buywelcome.html\';return false;");
+        cancel.innerHTML = "cancel";
+        myButton.appendChild(submit);
+        myButton.appendChild(cancel);
+        myOuter.appendChild(myButton);
+        f.appendChild(myOuter);
+        section.appendChild(f);
+    });    
+
+</script>

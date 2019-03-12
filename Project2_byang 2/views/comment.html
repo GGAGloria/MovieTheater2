@@ -1,0 +1,116 @@
+<head>
+        <meta charset="UTF-8">
+        <title>Elvia's Cinema</title>
+        <link rel="stylesheet" href="stylesheets/commentstyle.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<div class = "nav">
+    <ul>
+        <li><a href = "/tobuywelcome" class = "buy"> Buy A ticket </a></li>
+        <li><a href = "/tocomment" class = "buttontop"> Movie Review </a></li>
+        <li><a href = "/tohistory" class = "buttontop"> Purchase History </a></li>
+        <li><a href = "/logout" class = "buttontop"> Logout </a></li>
+    </ul>
+</div>
+<div class = "outer">
+    <div class = "forms">
+        <form>
+            <select name = "film" id = "film">
+            </select>
+            <br>
+            <textarea id = "text" name = "comment" rows = "20" cols = "80"  placeholder = "Please input comment here..." > </textarea>
+            <br>
+            <button id = "view" type="button"> View Comment </button>
+            <button id = "addComment" type="button" name = "submit"> Submit Comment </button>
+            </form>
+            <div id="comments"> 
+            </div>
+    </div>
+</div>
+<section>
+</section>
+
+<script>
+// DOM Ready =============================================================
+$(document).ready(function () {
+    // Populate the commodity list on initial page load
+    populateOption();
+});
+
+function populateOption(){
+    var select = document.getElementById('film');
+    $.getJSON('/comment', function (data) {
+        var lookup = {};
+        var result = [];
+        for (var item, i = 0; item = data[i++];) {
+            var name = item.FilmName;
+            if (!(name in lookup)) {
+                lookup[name] = 1;
+                result.push(item);
+            }
+        }
+        for (var item, i = 0; item = result[i++];) {
+            var film = item.FilmName;
+            var value = '"'+film+'"';
+            var myOption = "<option value = "+value+">" + film + "</option>";
+            select.innerHTML += myOption;
+        }
+    });
+};
+
+$('#addComment').on('click',addComment);
+
+function addComment(event){
+    event.preventDefault();
+    var filmname = $('#film').val();
+    var comment = $('#text').val();
+    if (comment != null){
+        var newComment = {
+            'FilmName': filmname,
+            'Comment': comment
+        };
+        $.ajax({
+            type: 'POST',
+            data: newComment,
+            url: '/addComment',
+            dataType: 'JSON'
+        }).done(function (response) {
+            if (response.msg === 'success') {
+            // Clear the form inputs
+            $('#text').val('');
+            // Update the table
+            var section= document.querySelector('section');
+            section.innerHTML = "Your comment has been submitted.";
+            }
+            else {
+                // If something goes wrong, alert the error message that our service returned
+                alert('Error: ' + response.msg);
+            }
+        });
+    }
+}
+  
+$('#view').on('click',showComment);
+
+function showComment(event){
+    event.preventDefault();
+    var filmname = $('#film').val();
+    $.ajax({
+        type: 'POST',
+        data: {'FilmName':filmname},
+        url: '/showComment',
+        dataType: 'JSON'
+    }).done(function (data) {
+        var section= document.querySelector('section');
+        section.innerHTML = "";
+        $.each(data, function () {
+            var UserID = this.UserID;
+            var Comment = this.Comment;
+            var string =  "<h2> Viewer: "+UserID+"</h2>";
+            string += "<h3> Comment: "+Comment+"</h2>";
+            string += "<hr>";
+            section.innerHTML += string;
+        });
+    });
+}
+</script>

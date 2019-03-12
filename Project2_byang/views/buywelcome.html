@@ -1,0 +1,96 @@
+<head>
+        <meta charset="UTF-8">
+        <title>Elvia's Cinema</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" media="screen and (max-width: 500px)" href="stylesheets/buywelcome_mobile.css" type="text/css">
+        <link rel="stylesheet" media="screen and (min-width: 500px) and (max-width: 1000px)" href="stylesheets/buywelcome_tablet.css" type="text/css">
+        <link rel="stylesheet" media="screen and (min-width: 1000px)" href="stylesheets/buywelcome_desktop.css" type="text/css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<div class = "nav">
+    <ul>
+        <li><a href = "/tobuywelcome" class = "buy"> Buy A ticket </a></li>
+        <li><a href = "/tocomment" class = "buttontop"> Movie Review </a></li>
+        <li><a href = "/tohistory" class = "buttontop"> Purchase History </a></li>
+        <li><a href = "/logout" class = "buttontop"> Logout </a></li>
+    </ul>
+</div>
+<section>
+</section>
+
+<script type="text/javascript">
+
+// DOM Ready =============================================================
+$(document).ready(function () {
+    // Populate the commodity list on initial page load
+    populateFilm();
+});
+
+function populateFilm(){
+    var section = document.querySelector('section');
+    $.getJSON('/buywelcome', function (data) {
+        var lookup = {};
+        var result = [];
+        var names = [];
+        for (var item, i = 0; item = data[i++];) {
+            var name = item.FilmName;
+            if (!(name in lookup)) {
+                lookup[name] = 1;
+                result.push(item);
+                names.push(name);
+            }
+        }
+        for (var item, i = 0; item = result[i++];) {
+            var myH1 = document.createElement('h1');
+            myH1.textContent = item.FilmName;
+            section.appendChild(myH1);
+            var myImage = document.createElement('img');
+            myImage.setAttribute('src', "/movie"+i+'.jpg');
+            section.appendChild(myImage);
+            var myH3 = document.createElement('h3');
+            myH3.textContent = item.Description;
+            section.appendChild(myH3);
+            var myH4 = document.createElement('h4');
+            myH4.textContent = item.Director;
+            section.appendChild(myH4);
+            var myH4 = document.createElement('h4');
+            myH4.textContent = item.Duration;
+            section.appendChild(myH4);
+            var myH4 = document.createElement('h4');
+            myH4.textContent = item.Category;
+            section.appendChild(myH4);
+            var myH4 = document.createElement('h4');
+            myH4.textContent = item.Language;
+            section.appendChild(myH4);
+            var matchingResults = data.filter(function (x) {
+                // body...
+                return x.FilmName == item.FilmName;
+            });
+            console.info(matchingResults);
+            var f = document.createElement('form');
+            f.setAttribute('method',"post");
+            f.setAttribute('action',"/seat");
+            var s = document.createElement('select');
+            s.setAttribute('name', "broadcast");
+            s.setAttribute('id', "broadcast");
+            f.appendChild(s);
+            for (var bc, j=0; bc = matchingResults[j++];){
+                var optionText = bc.Dates+' '+bc.Time+' ('+bc.day+') '+bc.HouseId;
+                var optionValue = '"'+optionValue+'"';
+                var bcid = bc.BroadcastId;
+                option = new Option(optionText,bcid);
+                s.appendChild(option);
+            }
+            var inputt = document.createElement('input');
+            inputt.setAttribute('type',"submit");
+            inputt.setAttribute('value',"Submit");
+            inputt.setAttribute('id',"submit");
+            f.appendChild(inputt);
+            section.appendChild(f);
+        }
+    });
+}
+
+
+   
+</script>

@@ -1,0 +1,39 @@
+body{
+  font-family: arial black;
+  background-image: url("../main.jpg");
+}
+
+ul{
+  background-color: #333333;
+  padding: 0;
+  width: 100%;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+li {
+  display: inline;
+}
+
+li a{
+  display: inline-block;
+  padding: 20px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin: 2px;
+  text-decoration: none;
+}
+
+li a:hover{
+  background-color: #80bfff;
+  color: black;
+}
+
+p{
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+

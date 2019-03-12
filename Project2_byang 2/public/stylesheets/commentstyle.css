@@ -1,0 +1,125 @@
+body{ 
+    font-family: arial black;
+    background-image: url("../image/background2.jpg");
+}
+
+.outer{
+  width:100%;
+  text-align: center;
+  margin-top: 5%;
+}
+
+.forms{
+  display: inline-block;
+  align-content: center;
+  background-color: lightyellow;
+  width:30%;
+  marin: 0 auto;
+}
+
+ul{
+    background-color: #333333;
+    padding: 0;
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+li {
+    display: inline;
+}
+
+li a{
+    display: inline-block;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: #80bfff;
+    color: black;
+}
+
+h1{
+    text-align:center;
+    margin:20px;
+    font-family: arial black;
+}
+
+h2{
+    display: inline;
+    text-align: center;
+    color: black;
+}
+
+h3{
+    ext-align: center;
+    color: black;
+}
+
+p {
+    padding: 10px;
+    text-align: center;
+}
+
+select{
+    border-radius: 8px;
+    padding: 5px 5px;
+    font-size: 15px;
+}
+
+option{
+    text-align: center;
+    margin-top: 50px;
+}
+
+textarea{
+    border-radius: 8px;
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+    margin-top: 8px;
+    max-width: 100%;
+}
+input[type=submit]{
+    width:140px;
+    padding:10px 10px;
+    margin:10px;
+    display: inline-block;
+    border: 0px solid grey;
+    box-sizing: border-box;
+    background-color: green;
+    color: white;
+    font-size: 15px;
+    border-radius: 8px;
+}
+input[type=button]{
+    width:140px;
+    padding:10px 10px;
+    margin:10px;
+    display: inline-block;
+    border: 0px solid grey;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: green;
+    color: white;
+    font-size: 15px;
+}
+
+input{
+    text-align: center;
+}
+
+
+#comments{
+    width: 75%;
+    margin-left:auto;
+    margin-right:auto;
+    font-size:15px;
+    color: black;
+}
+

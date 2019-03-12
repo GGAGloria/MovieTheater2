@@ -1,0 +1,101 @@
+body{ 
+    font-family: arial black;
+    background-size: auto;
+}
+
+ul{
+    background-color: #333333;
+    padding: 0;
+    width: 650px;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+li {
+    display: inline;
+}
+
+li a{
+    display: inline-block;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: #80bfff;
+    color: black;
+}
+
+
+h1{
+    padding-top:10px;
+    text-align: center;
+}
+
+form{
+    position: relative;
+    left: 15%;
+    margin-top: 50px;
+    margin-bottom: 60px;
+}
+
+select{
+    border-radius: 8px;
+    padding: 3px 3px;
+    font-size: 15px;
+}
+
+.option{
+    text-align: center;
+    margin-top: 50px;
+}
+
+h3{
+    font-family: arial;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    line-height: 1.5;
+}
+
+h4{
+    font-family: arial;
+    margin-left: 45%;
+    line-height: 1.5;
+}
+
+.text{
+    margin-top: 90px;
+}
+
+img{
+    left: 20%;
+    position: absolute;
+    width: 20%;
+    margin-top: 10px;
+}
+
+
+input{
+    width: 80px;
+    padding: 3px;
+    margin:10px;
+    display: inline-block;
+    border: 1px solid grey;
+    box-sizing: border-box;
+    background-color: lightgreen;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+input:hover{
+    background-color: grey;
+    color: white;
+}

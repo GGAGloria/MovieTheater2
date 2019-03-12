@@ -1,0 +1,53 @@
+body{
+    font-family: arial;
+}
+
+.outer{
+  width:100%;
+  text-align: center;
+  margin-top: 5%;
+}
+.form{
+      display: inline-block;
+      align-content: center;
+      background-color: lightyellow;
+      width:30%;
+      margin: 0 auto;
+}
+
+h1{
+    text-align: center;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type=submit]{
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}

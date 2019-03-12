@@ -1,0 +1,64 @@
+body{ 
+    font-family: arial;
+    background-size: auto;
+}
+
+ul{
+    background-color: #333333;
+    padding: 0;
+    width: 600px;
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+li {
+    display: inline;
+}
+
+li a{
+    display: inline-block;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin: 2px;
+    text-decoration: none;
+}
+
+li a:hover{
+    background-color: #80bfff;
+    color: black;
+}
+
+h1{
+    text-align:center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    font-family: arial black;
+}
+
+.ticketinformation{  
+    text-align: left;
+    width: 300px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    background-color: black;
+    color: white;
+    opacity: 0.8;
+    line-height: 1.5;
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+
+button{
+   background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
